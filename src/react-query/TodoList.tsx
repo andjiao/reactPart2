@@ -1,24 +1,13 @@
-import axios from 'axios';
-import { useQuery } from '@tanstack/react-query';
+import useTodos from './hooks/useTodos';
 
+  /*
+    Now this components focus only on markup, it does not know how the data should be fecthed.
+    So it only haave 1 responsibility
 
-interface Todo {
-  id: number;
-  title: string;
-  userId: number;
-  completed: boolean;
-}
+    */
 
 const TodoList = () => {
-
-    const fetchTodos = ()=> axios
-      .get <Todo[]>('https://jsonplaceholder.typicode.com/todos')
-      .then(res=> res.data)
-
-    const { data: todos, error, isLoading } = useQuery<Todo[], Error>({
-        queryKey: ['todos'],
-        queryFn: fetchTodos
-    })
+    const { data: todos, error, isLoading } = useTodos()
 
     if(isLoading) return <p>Loading...</p>
 
